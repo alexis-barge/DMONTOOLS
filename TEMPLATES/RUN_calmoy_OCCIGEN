@@ -35,7 +35,7 @@ done
 
 # submit calmoy.$pbsext
 cat $MPDIR/calmoy.$pbsext | sed -e "s/$MACHINE/PBS/" \
-                   -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" -e "s/<year>/$year/g" \
+                   -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" -e "s/<year>/$year/g" -e "s/<account>/$ACCOUNT/" \
                    -e "s@<WPDIR>@$WPDIR@" \
                    -e "s@<MPITOOLS>@$MPITOOLS@"  > zcalmoy.$pbsext
 
@@ -53,7 +53,7 @@ done
 
 # submit calmoyvt.$pbsext
 cat $MPDIR/calmoyvt.$pbsext | sed  -e "s/$MACHINE/PBS/" \
-                   -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" -e "s/<year>/$year/g" \
+                   -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" -e "s/<year>/$year/g" -e "s/<account>/$ACCOUNT/"\
                    -e "s@<WPDIR>@$WPDIR@" \
                    -e "s@<MPITOOLS>@$MPITOOLS@" > zcalmoyvt.$pbsext
 jobidvt=$(submit zcalmoyvt.$pbsext  | awk '{print $NF}' )
@@ -63,7 +63,7 @@ jobidvt=$(submit zcalmoyvt.$pbsext  | awk '{print $NF}' )
 # submit calanual script with dependencies afterok on jobidmoy and jobidvt
 
 cat $MPDIR/calannual.$pbsext | sed -e "s/$MACHINE/PBS/" \
-     -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" \
+     -e "s/<CONFIG>/$CONFIG/" -e "s/<CASE>/$CASE/" -e "s/<account>/$ACCOUNT/"\
      -e "s/<JOBIDMOY>/$jobidmoy/" -e  "s/<JOBIDVT>/$jobidvt/" -e "s/<year>/$year/g" \
      -e "s@<WPDIR>@$WPDIR@"  > zcalannual_$year.$pbsext
 

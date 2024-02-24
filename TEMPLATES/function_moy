@@ -43,7 +43,7 @@ case $MACHINE in
        if [ $MACHINE = occigen2 ] ; then  sbatch   $@ ; fi
              }
 
-    monthly() { m=$1  ; mm=$(printf "%02d" $m )
+    monthly() { m=$1  ; mm=$(printf "%02d" $((10#$m)) )
        cd $MOYTMPDIR/$year
        chkdir $MOYTMPDIR/$year/$mm
        cd $MOYTMPDIR/$year/$mm
@@ -54,12 +54,12 @@ case $MACHINE in
          $CDFTOOLS/cdfmoy -l ${CONFCASE}_y${year}m${mm}d??${xiosid}_${typ}.nc -o ${CONFCASE}_y${year}m${mm}${xiosid}_${typ} $NCOPT $VVLOPT
          case $typ in 
           ( gridT | gridU | gridV | gridW  )  ;; # nothing to do
-          ( * ) ; rm  ${CONFCASE}_y${year}m${mm}${xiosid}_${typ}2.nc  ;;
+          ( * ) rm  ${CONFCASE}_y${year}m${mm}${xiosid}_${typ}2.nc  ;;
          esac
          \rm ${CONFCASE}_y${year}m${mm}d??${xiosid}_${typ}.nc
        done ;}
 
-    monthlyvt() { m=$1  ; mm=$(printf "%02d" $m )
+    monthlyvt() { m=$1  ; mm=$(printf "%02d" $((10#$m)) )
        cd $VTTMPDIR/$year
        chkdir $VTTMPDIR/$year/$mm
        cd $VTTMPDIR/$year/$mm
